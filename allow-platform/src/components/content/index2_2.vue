@@ -1,0 +1,17 @@
+<template>
+    <div>
+        <h1>index2-2</h1>
+    </div>
+</template>
+
+<script>
+export default {
+    
+}
+</script>
+
+<style lang='scss'>
+@import '../../css/reset.scss';
+@import '../../css/base.scss';
+
+</style>
