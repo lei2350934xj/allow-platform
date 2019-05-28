@@ -10,18 +10,24 @@ import 'element-ui/lib/theme-chalk/index.css';
 // 引入axios
 import axios from 'axios';
 Vue.prototype.$http = axios;	// axios是不能在其他组件中使用，所以将axios改写成vue的原型属性
-axios.defaults.baseURL = '/api';
+// axios.defaults.baseURL = '/api';
 
 // 引入路由模块
 import router from './router/router.js';
+// 引入mock模块
+import './mock/mock.js';
+// 引入Vuex
+import store from './store/store.js';
 
 Vue.use(ElementUI);
 Vue.config.productionTip = false
+
 
 // 1-自动挂载 用 el
 new Vue({
 	el : '#app',
 	router,
+	store,
 	render: h=>h(App)
 });
 /* eslint-disable no-new */

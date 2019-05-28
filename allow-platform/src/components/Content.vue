@@ -20,8 +20,8 @@
                         <template slot="title"><i class="el-icon-message"></i>我的审批</template>
                         <el-menu-item-group>
                         <!-- <template slot="title">分组一</template> -->
-                            <el-menu-item index="2-1"><router-link to="/index2_1">资源位审批</router-link></el-menu-item>
-                            <el-menu-item index="2-2"><router-link to="/index2_2">渠道审批</router-link></el-menu-item>
+                            <el-menu-item index="2-1" @click="handleClick"><router-link to="/index2_1">资源位审批</router-link></el-menu-item>
+                            <el-menu-item index="2-2" @click="handleClick"><router-link to="/index2_2">渠道审批</router-link></el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
 

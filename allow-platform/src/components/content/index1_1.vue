@@ -5,6 +5,10 @@
             <el-header>
                 <!-- <p>tab标签</p> -->
                 <!-- <button @click='handleClick'>改变text的值</button> -->
+                <p>{{this.$store.state}}</p>
+                <p>{{this.$store.getters.getState}}</p>
+                <button v-on:click='addFun'>+</button>
+                <button @click='reduceFun'>-</button>
                 <el-tabs type='card' v-model="activeName" @tab-click="handleClick">
                     <el-tab-pane label="新增申请" name="first"></el-tab-pane>
                     <el-tab-pane label="申请记录" name="second"></el-tab-pane>
@@ -191,16 +195,37 @@ export default {
                 this.stepactive = 3;
             }
         },
+        // 异步转同步
         async getAllData() {
             // 请求接口返回的是个Promise，异步函数 这里用async await改成同步
-            console.log('调接口');
+            console.log('调/activity/duanwu/index接口');
             let resd = '';
-            await this.$http.get('/activity/duanwu/index')
-            .then(res => {
-                resd = res;
-                });
-                console.log(resd);
-            }
+            await instance.get('/api/activity/duanwu/index')
+                .then(res => {
+                    resd = res;
+                    });
+                    console.log(resd);
+        },
+        // 异步
+        getmockData(){
+            console.log('调mock接口');
+            // instance.get('/data/index')
+            this.$http.get('/data/index',{
+                params:{}
+            }).then(res=>{
+                console.log('data='+res);
+            }).catch(err=>{
+                console.log('error'+err)
+            });
+        },
+        addFun(){
+            // this.$store.commit('add');
+            this.$store.dispatch('addFun');
+        },
+        reduceFun(){
+            // this.$store.commit('reduce');
+            this.$store.dispatch('reduceFun');
+        }
     },
     created: function(){    // 在模板渲染成html 或者 模板编译进路由前调用
         // loading动效
@@ -215,6 +240,7 @@ export default {
     mounted: function(){    // 在模板渲染成html后 调用数据方法
         // 调用接口
         this.getAllData();
+        this.getmockData();
     }    
 }
 </script>
