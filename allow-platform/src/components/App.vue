@@ -3,7 +3,15 @@
     <div>
         <!-- App页面 暂时不做路由 等需要往二级页跳转的时候再做路由的逻辑 -->
         <Header></Header>
-        <Content></Content>
+        <!-- <p>{{this.$store.getters.getIsCurrentPage}}</p> -->
+        <!-- <p>{{this.$store.getters.getRouterIndex}}</p> -->
+
+        <router-view v-if="this.$store.getters.getIsCurrentPage"></router-view>
+        
+        <router-view v-if="this.$store.getters.getRouterIndex=='userinfo'">
+            <info></info>
+        </router-view>
+        
         <!-- <Footer></Footer> -->
     </div>
 </template>
@@ -12,6 +20,7 @@
 import Header from './Header.vue'
 import Footer from './Footer.vue'
 import Content from './Content.vue'
+import info from './userInfo/info.vue'
 // 引入自定义的外部js文件中的方法
 import {add} from '../js/base.js'
 
@@ -19,7 +28,8 @@ export default {
     components: {
         Header,
         Content,
-        Footer
+        Footer,
+        info
     },
     data(){
         return {

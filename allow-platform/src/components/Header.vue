@@ -12,7 +12,7 @@
                 <li class='gap'>
                     <div></div>
                 </li>
-                <li class='user-info'>个人中心</li>
+                <li class='user-info' @click='goToUserInfo'><router-link to="/userInfo">个人中心</router-link></li>
                 <li class='quit'>退出</li>
             </ul>          
         </div>
@@ -22,7 +22,13 @@
 
 <script>
 export default {
-    
+    methods: {
+        goToUserInfo(){
+            // this.$store.commit('add');
+            this.$store.dispatch('routerUserInfo');
+            this.$store.dispatch('isNotCurrentPage');
+        }
+    }
 }
 </script>
 
@@ -39,6 +45,20 @@ export default {
             height: 80px;
             border-bottom: 1px solid #ebebeb;
             margin: 0 auto;
+            ul.container-right {
+                color:rgba(25,137,250,0.6);
+                cursor: pointer;
+                a {
+                    color: rgba(25,137,250,0.6);
+                    text-decoration: none;
+                    // &:visited {
+                    //     color: rgba(25,137,250,0.6);
+                    // }
+                }
+                a:hover {
+                    color: #409EFF;
+                }
+            }
             // background-color: rgb(190, 195, 197);
             h1 {
                 float: left;

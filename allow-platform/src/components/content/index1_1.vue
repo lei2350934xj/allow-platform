@@ -5,10 +5,12 @@
             <el-header>
                 <!-- <p>tab标签</p> -->
                 <!-- <button @click='handleClick'>改变text的值</button> -->
-                <p>{{this.$store.state}}</p>
-                <p>{{this.$store.getters.getState}}</p>
-                <button v-on:click='addFun'>+</button>
-                <button @click='reduceFun'>-</button>
+                <!-- vuex状态管理 -->
+                <!-- <p>{{this.$store.state}}</p> -->
+                <!-- <p>{{this.$store.getters.getState}}</p> -->
+                <!-- <button v-on:click='addFun'>+</button> -->
+                <!-- <button @click='reduceFun'>-</button> -->
+
                 <el-tabs type='card' v-model="activeName" @tab-click="handleClick">
                     <el-tab-pane label="新增申请" name="first"></el-tab-pane>
                     <el-tab-pane label="申请记录" name="second"></el-tab-pane>
@@ -20,7 +22,41 @@
                 <!-- <p>{{text}}</p> -->
                 <!-- tab：first下的内容 -->
                 <div v-show="activeContent[0]" class="first-content">
-                    <p>first</p>
+                    <!-- <p>first</p> -->
+                    <div>
+                        <div style="float:left;width:3px;height:20px;margin-right:5px;background-color:black;">|</div>
+                        <p style="float:left;line-height:20px;margin-bottom:30px;">基本信息</p>
+                    </div>
+                    <div style='clear:both;'></div>
+                    <div class='newAddApply'>
+                        <ul>
+                            <li><span>资源位名称：</span><el-input v-model="resourceName" placeholder="请输入内容"></el-input></li>
+                            <li><span>负责人：</span><el-input v-model="masterName" placeholder="请输入内容"></el-input></li>
+                            <li><span>负责人邮箱：</span><el-input v-model="masterEmail" placeholder="请输入内容"></el-input></li>
+                            <li>
+                                <span>矩阵名称：</span>
+                                <el-select v-model="matrixName" placeholder="请选择">
+                                    <el-option
+                                    v-for="item in options"
+                                    :key="item.matrixName"
+                                    :label="item.label"
+                                    :value="item.matrixName">
+                                    </el-option>
+                                </el-select>
+                            </li>
+                            <li>
+                                <span>产品线名称：</span>
+                                <el-select v-model="productName" placeholder="请选择">
+                                    <el-option
+                                    v-for="item in productOptions"
+                                    :key="item.productName"
+                                    :label="item.label"
+                                    :value="item.productName">
+                                    </el-option>
+                                </el-select>
+                            </li>                            
+                        </ul>
+                    </div>
                     <el-steps :active="stepactive" finish-status="success">
                         <el-step title="步骤 1"></el-step>
                         <el-step title="步骤 2"></el-step>
@@ -132,7 +168,45 @@ export default {
                 name: '',
                 status: ''
             },
-            res_getlist: ''     // 接收接口返回值
+            res_getlist: '',     // 接收接口返回值
+            // tab1下接口返回值定义
+            resourceName:'baidubox',
+            masterName:'liangttt',
+            masterEmail:'',
+            options: [{
+                matrixName: '选项1',
+                label: '百度App'
+                }, {
+                matrixName: '选项2',
+                label: '百度极速版'
+                }, {
+                matrixName: '选项3',
+                label: '好看视频'
+                }, {
+                matrixName: '选项4',
+                label: '全民小视频'
+                }, {
+                matrixName: '选项5',
+                label: '百度贴吧'
+            }],
+            matrixName:'',
+            productOptions:[{
+                productName: '选项1',
+                label: 'eopa'
+                }, {
+                productName: '选项2',
+                label: 'ucenter'
+                }, {
+                productName: '选项3',
+                label: 'fed_node'
+                }, {
+                productName: '选项4',
+                label: 'eopa-app'
+                }, {
+                productName: '选项5',
+                label: 'efe'
+            }],
+            productName:'',
         }
     },
     updated: function(){
@@ -203,8 +277,8 @@ export default {
             await instance.get('/api/activity/duanwu/index')
                 .then(res => {
                     resd = res;
-                    });
-                    console.log(resd);
+                });
+            console.log(resd);
         },
         // 异步
         getmockData(){
@@ -267,4 +341,25 @@ export default {
         margin-bottom: 0;
         width: 50%;
     }    
+    .title {
+        height: 20px;
+    }
+    .newAddApply {
+        font-size: 14px;
+        color: rgb(44, 44, 46);
+        .el-input {
+            width:600px;
+            // height: 20px;
+        }
+        .el-input--suffix {
+            width: 200px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        span {
+            display: inline-block;
+            width: 100px;
+        }
+    }
 </style>
